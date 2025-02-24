@@ -15,13 +15,26 @@
     <!-- Navigation Bar -->
     <nav class="w-full bg-white shadow-md fixed top-0 left-0 px-8 py-4 flex justify-between items-center">
         <a href="#" class="text-1xl md:text-2xl font-bold text-gray-900">Pancake Budgeting</a>
+        
+        <!-- Desktop Menu -->
         <div class="hidden md:flex space-x-6">
             <a href="#" class="text-gray-700 hover:text-gray-900">About Us</a>
             <a href="#" class="text-gray-700 hover:text-gray-900">Features</a>
             <a href="#" class="text-gray-700 hover:text-gray-900">Contact</a>
         </div>
-        <button class="md:hidden text-gray-900 text-2xl">☰</button>
+
+        <!-- Hamburger Button -->
+        <button id="menu-toggle" class="md:hidden text-gray-900 text-2xl">
+            ☰
+        </button>
     </nav>
+
+    <!-- Mobile Menu (Hidden by Default) -->
+    <div id="mobile-menu" class="hidden absolute top-16 left-0 w-full bg-white shadow-md md:hidden">
+        <a href="#" class="block px-8 py-4 text-gray-700 hover:bg-gray-100">About Us</a>
+        <a href="#" class="block px-8 py-4 text-gray-700 hover:bg-gray-100">Features</a>
+        <a href="#" class="block px-8 py-4 text-gray-700 hover:bg-gray-100">Contact</a>
+    </div>
 
     <!-- Hero Section -->
     <section class="h-screen flex flex-col items-center justify-center text-center px-6 pt-20">
@@ -36,5 +49,14 @@
         </button>
     </section>
 
+    <!-- JavaScript for Mobile Menu Toggle -->
+    <script>
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            var menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+    </script>
+
 </body>
 </html>
+
