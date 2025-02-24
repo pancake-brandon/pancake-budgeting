@@ -3,16 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pancake App - Budget Smarter</title>
+    <title>Pancake Budgeting - Budget Smarter</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
 </head>
-<body class="bg-gray-100">
-    <div class="flex items-center justify-center h-screen">
-        <div class="text-center bg-white p-10 rounded-lg shadow-lg max-w-lg">
-            <h1 class="text-4xl font-bold text-gray-800">Pancake Budgeting</h1>
-            <p class="text-gray-600 mt-4">Budget smarter and start saving money, one stack at a time.</p>
-            <button class="mt-6 px-6 py-3" style="background-color: #8B4513; color: white; font-weight: bold; border-radius: 0.5rem; transition: background-color 0.3s;" onmouseover="this.style.backgroundColor='#AD5719'" onmouseout="this.style.backgroundColor='#8B4513'">Join the Waitlist</button>
+<body class="bg-gray-50">
+
+    <!-- Navigation Bar -->
+    <nav class="w-full bg-white shadow-md fixed top-0 left-0 px-8 py-4 flex justify-between items-center">
+        <a href="#" class="text-1xl md:text-2xl font-bold text-gray-900">Pancake Budgeting</a>
+        <div class="hidden md:flex space-x-6">
+            <a href="#" class="text-gray-700 hover:text-gray-900">About Us</a>
+            <a href="#" class="text-gray-700 hover:text-gray-900">Features</a>
+            <a href="#" class="text-gray-700 hover:text-gray-900">Contact</a>
         </div>
-    </div>
+        <button class="md:hidden text-gray-900 text-2xl">☰</button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="h-screen flex flex-col items-center justify-center text-center px-6 pt-20">
+        <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight">
+            Budget Smarter
+        </h1>
+        <p class="text-lg text-gray-600 mt-4 max-w-2xl">
+            Take control of your finances with our simple, AI-powered budgeting app designed to help you save money, one stack at a time.
+        </p>
+        <button class="mt-6 px-8 py-3 bg-[#3CB371] text-white font-semibold rounded-lg shadow-lg transition duration-300 hover:bg-[#2E8B57]">
+            Join the Waitlist
+        </button>
+    </section>
+
 </body>
 </html>
