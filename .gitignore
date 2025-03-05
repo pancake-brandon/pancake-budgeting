@@ -15,3 +15,6 @@ __pycache__/
 # Ignore logs and system files
 *.log
 .DS_Store
+
+# Ignore pytest cache
+.pytest_cache/
