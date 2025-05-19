@@ -28,13 +28,17 @@
             <div class="flex space-x-6 items-center">
               <a href="about.html" class="text-gray-700 hover:text-black font-medium">About Us</a>
               <a href="contact.html" class="text-gray-700 hover:text-black font-medium">Contact</a>
-            </div>
-          </nav>                
+            </div>              
             
   <!-- Spacer to prevent content under fixed navbar -->
   <div class="h-1 md:h-1"></div>
   
-
+         <!-- Hamburger Button (Mobile) -->
+         <button id="menu-toggle" class="md:hidden text-gray-900 text-2xl">
+            ☰
+          </button>
+        </body>
+    </nav>
     <!-- Mobile Menu (Hidden by Default) -->
     <div id="mobile-menu" class="hidden absolute top-16 left-0 w-full bg-white shadow-md md:hidden">
         <a href="about.html" class="block px-8 py-4 text-gray-700 hover:bg-gray-100">About Us</a>
@@ -45,3 +49,10 @@
         <div>
             <!-- Main Content -->
   <main class="flex flex-col items-center mt-10 space-y-10 px-4">
+        <!-- JavaScript for Mobile Menu Toggle -->
+        <script>
+            document.getElementById('menu-toggle').addEventListener('click', function() {
+                var menu = document.getElementById('mobile-menu');
+                menu.classList.toggle('hidden');
+            });
+        </script>
