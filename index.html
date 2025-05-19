@@ -10,28 +10,49 @@
         body { font-family: 'Inter', sans-serif; }
     </style>
 </head>
+
+<!-- NavBar! -->
 <body class="bg-gray-50">
+    <body class="bg-gray-50">
 
-    <!-- Navigation Bar -->
-    <nav class="w-full bg-white shadow-md fixed top-0 left-0 px-8 py-4 md:pl-36 flex justify-between items-center">
-        <a href="#" class="text-xl md:text-3xl font-bold text-gray-900">Pancake</a>
-        
-        <!-- Desktop Menu -->
-        <div class="hidden md:flex space-x-6">
-            <a href="about.html" class="text-gray-700 hover:text-gray-900">About Us</a>
-            <a href="contact.html" class="text-gray-700 hover:text-gray-900">Contact</a>
-        </div>
-
-        <!-- Hamburger Button -->
-        <button id="menu-toggle" class="md:hidden text-gray-900 text-2xl">
+        <!-- NavBar -->
+        <nav class="w-full bg-white shadow-md fixed top-0 left-0 z-50 px-4 md:px-6 py-1 flex justify-between items-center">
+      
+          <!-- Left: Logo + Pancake -->
+          <div class="flex items-center gap-0 -ml-4">
+            <a href="index.html">
+              <img src="./images/PancakeAppLogo/logologo.png" alt="Pancake Logo" class="w-16 h-16 object-contain" />
+            </a>
+            <a href="index.html" class="text-3xl font-bold text-black">Pancake</a>
+          </div>
+      
+          <!-- Right: Nav Links (Desktop) -->
+          <div class="hidden md:flex space-x-6 items-center">
+            <a href="about.html" class="text-gray-700 hover:text-black font-medium">About Us</a>
+            <a href="contact.html" class="text-gray-700 hover:text-black font-medium">Contact</a>
+          </div>
+      
+          <!-- Hamburger Button (Mobile) -->
+          <button id="menu-toggle" class="md:hidden text-gray-900 text-2xl">
             ☰
-        </button>
-    </nav>
-
+          </button>
+        </nav>
+      
+        <!-- Mobile Menu (Hidden by Default) -->
+        <div id="mobile-menu" class="hidden absolute top-16 left-0 w-full bg-white shadow-md md:hidden">
+          <a href="about.html" class="block px-8 py-4 text-gray-700 hover:bg-gray-100">About Us</a>
+          <a href="contact.html" class="block px-8 py-4 text-gray-700 hover:bg-gray-100">Contact</a>
+        </div>
+      
+        <!-- Spacer under navbar -->
+        <div class="h-0 md:h-0"></div>
+      
+      </body>
+      
     <!-- Mobile Menu (Hidden by Default) -->
     <div id="mobile-menu" class="hidden absolute top-16 left-0 w-full bg-white shadow-md md:hidden">
-        <a href="#" class="block px-8 py-4 text-gray-700 hover:bg-gray-100">About Us</a>
-        <a href="#" class="block px-8 py-4 text-gray-700 hover:bg-gray-100">Contact</a>
+        <a href="about.html" class="block px-8 py-4 text-gray-700 hover:bg-gray-100">About Us</a>
+        <a href="contact.html" class="block px-8 py-4 text-gray-700 hover:bg-gray-100">Contact</a>
     </div>
 
     <!-- Hero Section -->
