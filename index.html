@@ -40,7 +40,7 @@
     </nav>
 
     <!-- Mobile Menu (Hidden by Default) -->
-    <div id="mobile-menu" class="hidden absolute top-16 left-0 w-full bg-white shadow-md md:hidden z-40">
+    <div id="mobile-menu" class="hidden absolute top-16 left-0 w-full bg-white shadow-md md:hidden z-[60]">
         <a href="#about" class="block px-8 py-4 text-gray-700 hover:bg-gray-100">About Us</a>
         <a href="#contact" class="block px-8 py-4 text-gray-700 hover:bg-gray-100">Contact</a>
     </div>
@@ -114,8 +114,16 @@
         </p>
     </section>
 
-    <!-- JavaScript for Mobile Menu Toggle -->
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-[#3CB371] text-white p-3 rounded-full shadow-lg hover:bg-[#2E8B57] transition-all duration-300 opacity-0 invisible z-50" aria-label="Back to top">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+    </button>
+
+    <!-- JavaScript for Mobile Menu Toggle and Back to Top -->
     <script>
+        // Mobile menu toggle
         document.getElementById('menu-toggle').addEventListener('click', function() {
             var menu = document.getElementById('mobile-menu');
             menu.classList.toggle('hidden');
@@ -126,6 +134,59 @@
             link.addEventListener('click', function() {
                 document.getElementById('mobile-menu').classList.add('hidden');
             });
+        });
+
+        // Back to top functionality
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        // Show/hide button and change color based on scroll position
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.pageYOffset + (window.innerHeight / 2); // Use middle of viewport
+            const aboutSection = document.getElementById('about');
+            const contactSection = document.getElementById('contact');
+            
+            // Get section positions
+            const aboutTop = aboutSection.offsetTop;
+            const contactTop = contactSection.offsetTop;
+            
+            // Show/hide button
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.add('opacity-0', 'invisible');
+                backToTopButton.classList.remove('opacity-100', 'visible');
+            }
+            
+            // Change button color based on current section
+            if (scrollPosition >= aboutTop && scrollPosition < contactTop) {
+                // In About section (green background) - white button
+                backToTopButton.classList.remove('bg-[#3CB371]', 'hover:bg-[#2E8B57]', 'text-white');
+                backToTopButton.classList.add('bg-white', 'hover:bg-gray-100', 'text-[#3CB371]');
+            } else {
+                // In Home or Contact section (white/gray background) - green button
+                backToTopButton.classList.remove('bg-white', 'hover:bg-gray-100', 'text-[#3CB371]');
+                backToTopButton.classList.add('bg-[#3CB371]', 'hover:bg-[#2E8B57]', 'text-white');
+            }
+        });
+
+        // Smooth scroll to top when clicked
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Keyboard accessibility for back to top button
+        backToTopButton.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
         });
     </script>
 </body>
