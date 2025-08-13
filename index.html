@@ -19,11 +19,11 @@
 
 <body class="bg-gray-50">
     <!-- NavBar -->
-    <nav class="w-full bg-white shadow-md fixed top-0 left-0 z-50 px-4 md:px-6 py-1 flex justify-between items-center">
+    <nav class="w-full bg-white shadow-md fixed top-0 left-0 z-50 px-4 md:px-6 py-3 flex justify-between items-center">
         <!-- Left: Logo + Pancake -->
-        <div class="flex items-center gap-0 -ml-4">
+        <div class="flex items-center gap-2">
             <a href="#home">
-                <img src="./images/PancakeAppLogo/PancakeMoney.png" alt="Pancake Logo" class="w-8 h-18 object-contain mr-2" />
+                <img src="./images/PancakeAppLogo/PancakeMoney.png" alt="Pancake Logo" class="w-7 h-7 object-contain" />
             </a>
             <a href="#home" class="text-3xl font-bold text-black">Pancake</a>
         </div>
@@ -73,43 +73,58 @@
     </section>
 
     <!-- About Section - GREEN -->
-    <section id="about" class="flex flex-col justify-start px-6 py-20 md:py-32 md:px-12 lg:px-24 gap-8 md:gap-12 bg-[#3CB371]">
-        <!-- Mission -->
-        <div class="w-full">
+    <section id="about" class="flex md:flex-row flex-col items-center justify-center px-6 py-20 md:py-32 md:px-12 lg:px-24 gap-8 md:gap-12 bg-[#3CB371]">
+        <!-- Mission Text -->
+        <div class="md:w-1/2 lg:w-5/12 text-center md:text-left">
             <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white mb-4 md:mb-6">Our Mission</h1>
-            <p class="text-base sm:text-lg text-white max-w-4xl leading-relaxed">
-                We understand that budgeting can be time-consuming, boring, and overwhelming.
-                At Pancake, our mission is not to teach you how to budget or provide the tools to do it yourself.
-                We're here to automate the process and take it out of your hands completely. No more spreadsheets,
-                stress, or guesswork. We want to help you take control of your finances and start saving money —
-                one stack at a time.
+            <p class="text-base sm:text-lg text-white leading-relaxed">
+                Consumer debt is at an all time high, and cost of living seems to go up by the hour.
+                At Pancake, we understand that confronting our finances can feel too time-consuming, overwhelming, and anxiety-inducing.
+                We think budgeting should be a source of comfort and security.
+                No more spreadsheets, stress, or guesswork.
+                We want to help you take control of your finances and start saving money — one stack at a time.
+            </p>
+        </div>
+
+        <!-- SVG Image -->
+        <div class="md:w-1/2 lg:w-5/12 flex justify-center">
+            <img src="images/images/relax.svg" alt="Relax Illustration" class="w-full max-w-sm md:max-w-md lg:max-w-lg">
+        </div>
+    </section>
+
+    <!-- Pancake Pro Section - WHITE -->
+    <section id="pancake-pro" class="flex md:flex-row flex-col items-center justify-center px-6 py-20 md:py-32 md:px-12 lg:px-24 gap-8 md:gap-12 bg-gray-50">
+        <!-- SVG Image -->
+        <div class="md:w-1/2 lg:w-5/12 flex justify-center">
+            <img src="images/images/ai.svg" alt="AI Illustration" class="w-full max-w-sm md:max-w-md lg:max-w-lg">
+        </div>
+
+        <!-- Text Content -->
+        <div class="md:w-1/2 lg:w-5/12 text-center md:text-right">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 md:mb-6">Smarter, Simpler Budgeting with Pancake Pro</h1>
+            <p class="text-base sm:text-lg text-gray-700 leading-relaxed">
+                Powered by Claude AI, Pancake Pro analyzes your spending patterns and helps identify potential savings opportunities.
+                Automatically generate a personalized spending plan, and start budgeting smarter and faster with a Pancake Pro account today.
             </p>
         </div>
     </section>
 
-    <!-- Features Section - WHITE -->
-    <section id="features" class="flex flex-col justify-start px-6 py-20 md:py-32 md:px-12 lg:px-24 gap-8 md:gap-12 bg-gray-50">
-        <div class="w-full">
-            <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 md:mb-6">Features</h1>
-            <p class="text-base sm:text-lg text-gray-700 max-w-4xl leading-relaxed">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    <!-- Data Privacy Section - GREEN -->
+    <section id="data-privacy" class="flex md:flex-row flex-col items-center justify-center px-6 py-20 md:py-32 md:px-12 lg:px-24 gap-8 md:gap-12 bg-[#3CB371]">
+        <!-- Text Content -->
+        <div class="md:w-1/2 lg:w-5/12 text-center md:text-left">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white mb-4 md:mb-6">Your Data Privacy Matters</h1>
+            <p class="text-base sm:text-lg text-white leading-relaxed">
+                At Pancake, your data privacy is our top priority.
+                We encrypt your information using the same standards that major banks use, and will never sell, share, or monetize your personal data to third parties.
+                Your financial information is yours alone – we only use it to power your personalized budgeting experience.
+                We believe trust is earned, and protecting your privacy is fundamental to everything we do.
             </p>
         </div>
-    </section>
 
-    <!-- How It Works Section - GREEN -->
-    <section id="how-it-works" class="flex flex-col justify-start px-6 py-20 md:py-32 md:px-12 lg:px-24 gap-8 md:gap-12 bg-[#3CB371]">
-        <div class="w-full">
-            <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white mb-4 md:mb-6">How It Works</h1>
-            <p class="text-base sm:text-lg text-white max-w-4xl leading-relaxed">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
+        <!-- SVG Image -->
+        <div class="md:w-1/2 lg:w-5/12 flex justify-center">
+            <img src="images/images/data-privacy.svg" alt="Data Privacy Illustration" class="w-full max-w-sm md:max-w-md lg:max-w-lg">
         </div>
     </section>
 
