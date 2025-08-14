@@ -6,6 +6,22 @@
     <title>Pancake - One Stack at a Time</title>
     <link rel="icon" type="image/svg+xml" href="./images/PancakeAppLogo/PancakeMoneyLogo.svg">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Extend Tailwind with smaller max-width sizes
+        tailwind.config = {
+            theme: {
+                extend: {
+                    maxWidth: {
+                        '4xs': '14rem',  // 224px
+                        '5xs': '12rem',  // 192px
+                        '6xs': '10rem',  // 160px
+                        '7xs': '8rem',   // 128px
+                        '8xs': '6rem',   // 96px
+                    }
+                }
+            }
+        }
+    </script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -71,8 +87,8 @@
         </div>
 
         <!-- SVG Image -->
-        <div class="md:w-1/2 lg:w-5/12 flex justify-center">
-            <img src="images/images/take-control.svg" alt="Investing Illustration" class="w-full max-w-sm md:max-w-md lg:max-w-lg">
+        <div class="md:w-1/2 lg:w-5/12 flex justify-center md:justify-end">
+            <img src="images/images/PancakeMoneyHPLight 1.svg" alt="Investing Illustration" class="w-full max-w-4xs md:max-w-3xs lg:max-w-xs">
         </div>
     </section>
 
@@ -127,7 +143,7 @@
 
         <!-- SVG Image -->
         <div class="md:w-1/2 lg:w-5/12 flex justify-center">
-            <img src="images/images/data-privacy.svg" alt="Data Privacy Illustration" class="w-full max-w-sm md:max-w-md lg:max-w-lg">
+            <img src="images/images/data-privacy.svg" alt="Data Privacy Illustration" class="w-full max-w-4xs md:max-w-3xs lg:max-w-2xs">
         </div>
     </section>
 
