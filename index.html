@@ -30,6 +30,22 @@
         html {
             scroll-behavior: smooth;
         }
+        /* Optimize SVG rendering */
+        .svg-crisp {
+            image-rendering: optimizeSpeed;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+            shape-rendering: geometricPrecision;
+            will-change: transform;
+        }
+        /* Force GPU acceleration for better rendering */
+        @media (max-width: 768px) {
+            .svg-crisp {
+                transform: translateZ(0);
+                backface-visibility: hidden;
+            }
+        }
     </style>
 </head>
 
@@ -88,7 +104,10 @@
 
         <!-- SVG Image -->
         <div class="md:w-1/2 lg:w-5/12 flex justify-center md:justify-end">
-            <img src="images/images/dashboard.svg" alt="Investing Illustration" class="w-full max-w-4xs md:max-w-2xs lg:max-w-xs" style="image-rendering: crisp-edges; image-rendering: -webkit-optimize-contrast;">
+            <picture>
+                <source srcset="images/images/dashboard.png" media="(max-width: 768px)">
+                <img src="images/images/dashboard.svg" alt="Investing Illustration" class="svg-crisp w-full max-w-4xs md:max-w-2xs lg:max-w-xs" loading="lazy">
+            </picture>
         </div>
     </section>
 
@@ -107,7 +126,7 @@
 
         <!-- SVG Image -->
         <div class="md:w-1/2 lg:w-5/12 flex justify-center">
-            <img src="images/images/relax.svg" alt="Relax Illustration" class="w-full max-w-sm md:max-w-md lg:max-w-lg" style="image-rendering: crisp-edges; image-rendering: -webkit-optimize-contrast;">
+            <img src="images/images/relax.svg" alt="Relax Illustration" class="svg-crisp w-full max-w-sm md:max-w-md lg:max-w-lg" loading="lazy">
         </div>
     </section>
 
@@ -115,7 +134,7 @@
     <section id="pancake-pro" class="flex md:flex-row flex-col-reverse items-center justify-center px-6 py-20 md:py-32 md:px-12 lg:px-24 gap-8 md:gap-12 bg-gray-50">
         <!-- SVG Image -->
         <div class="md:w-1/2 lg:w-5/12 flex justify-center">
-            <img src="images/images/ai.svg" alt="AI Illustration" class="w-full max-w-sm md:max-w-md lg:max-w-lg" style="image-rendering: crisp-edges; image-rendering: -webkit-optimize-contrast;">
+            <img src="images/images/ai.svg" alt="AI Illustration" class="svg-crisp w-full max-w-sm md:max-w-md lg:max-w-lg" loading="lazy">
         </div>
 
         <!-- Text Content -->
@@ -143,7 +162,7 @@
 
         <!-- SVG Image -->
         <div class="md:w-1/2 lg:w-5/12 flex justify-center">
-            <img src="images/images/data-privacy.svg" alt="Data Privacy Illustration" class="w-full max-w-4xs md:max-w-3xs lg:max-w-2xs" style="image-rendering: crisp-edges; image-rendering: -webkit-optimize-contrast;">
+            <img src="images/images/data-privacy.svg" alt="Data Privacy Illustration" class="svg-crisp w-full max-w-4xs md:max-w-3xs lg:max-w-2xs" loading="lazy">
         </div>
     </section>
 
