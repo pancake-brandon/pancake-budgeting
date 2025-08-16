@@ -162,7 +162,7 @@
 
         <!-- SVG Image -->
         <div class="md:w-1/2 lg:w-5/12 flex justify-center">
-            <img src="images/images/data-privacy.svg" alt="Data Privacy Illustration" class="svg-crisp w-full max-w-4xs md:max-w-3xs lg:max-w-2xs" loading="lazy">
+            <img src="images/images/data-privacy.svg" alt="Data Privacy Illustration" class="svg-crisp w-full max-w-sm md:max-w-md lg:max-w-lg" loading="lazy">
         </div>
     </section>
 
@@ -199,6 +199,25 @@
 
     <!-- JavaScript for Mobile Menu Toggle and Back to Top -->
     <script>
+        // Remove anchor from URL on page load/refresh
+        if (window.location.hash) {
+            // Store the hash to optionally scroll to it
+            const targetHash = window.location.hash;
+
+            // Remove the hash from the URL without causing a page reload
+            history.replaceState(null, null, window.location.pathname + window.location.search);
+
+            // Optional: Still scroll to the element if it exists
+            // This maintains the user's position after refresh
+            // Comment out the following lines if you don't want to maintain scroll position
+            const targetElement = document.querySelector(targetHash);
+            if (targetElement) {
+                setTimeout(() => {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+            }
+        }
+
         // Mobile menu toggle
         document.getElementById('menu-toggle').addEventListener('click', function() {
             var menu = document.getElementById('mobile-menu');
