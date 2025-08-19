@@ -329,32 +329,76 @@
             };
 
             try {
-                // Determine the correct API URL based on environment
+                // For production, use Loops.so API directly
+                // For local development, use the backend proxy
                 let apiUrl;
+                let requestOptions;
 
-                // Handle file:// protocol and local development
                 if (window.location.protocol === 'file:' ||
                     window.location.hostname === 'localhost' ||
                     window.location.hostname === '127.0.0.1' ||
                     window.location.hostname === '') {
+                    // Local development - use backend proxy
                     apiUrl = 'http://localhost:8000/api/v1/forms/waitlist';
+                    requestOptions = {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(data)
+                    };
                 } else {
-                    apiUrl = 'https://api.pancakemoney.com/api/v1/forms/waitlist';
+                    // Production - use Loops.so API directly
+                    apiUrl = 'https://app.loops.so/api/v1/contacts/create';
+
+                    // Transform data for Loops.so format
+                    const loopsData = {
+                        email: data.email,
+                        firstName: data.first_name,
+                        source: 'Website',
+                        userGroup: 'Waitlist',
+                        customFields: {}
+                    };
+
+                    if (data.use_case) {
+                        loopsData.customFields.use_case = data.use_case;
+                    }
+
+                    requestOptions = {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer e1860bab7cc81960e267457292c88d40'
+                        },
+                        body: JSON.stringify(loopsData)
+                    };
                 }
 
                 console.log('Submitting to:', apiUrl);  // Debug logging
 
                 const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data)
+                    ...requestOptions
                 });
 
-                const result = await response.json();
+                // Handle response based on environment
+                let success = false;
 
-                if (response.ok) {
+                if (window.location.hostname === 'localhost' ||
+                    window.location.hostname === '127.0.0.1' ||
+                    window.location.hostname === '') {
+                    // Local backend response
+                    const result = await response.json();
+                    success = response.ok;
+                } else {
+                    // Loops.so returns different response format
+                    if (response.ok) {
+                        const result = await response.json();
+                        // Loops.so returns success: true or id property on success
+                        success = result.success || result.id;
+                    }
+                }
+
+                if (success) {
                     // Success - show success message and hide form
                     form.innerHTML = `
                         <div class="bg-green-50 border border-green-200 rounded-lg p-6 text-center">
@@ -368,7 +412,14 @@
                 } else {
                     // Error - show error message
                     messageDiv.className = 'text-red-600 text-sm mt-2';
-                    messageDiv.textContent = result.detail || 'Something went wrong. Please try again.';
+
+                    // Check if email already exists (409 status from Loops)
+                    if (response.status === 409) {
+                        messageDiv.textContent = 'You\'re already on the waitlist! Check your email for updates.';
+                    } else {
+                        messageDiv.textContent = 'Something went wrong. Please try again or email support@pancakemoney.com';
+                    }
+
                     submitButton.disabled = false;
                     submitButton.textContent = 'Join the Waitlist';
                 }
@@ -377,17 +428,26 @@
                 console.error('Form submission error:', error);
                 messageDiv.className = 'text-red-600 text-sm mt-2';
 
-                // Check if it's a CORS error or connection issue
-                if (error.message.includes('Failed to fetch')) {
+                // For production, provide user-friendly message
+                if (window.location.hostname !== 'localhost' &&
+                    window.location.hostname !== '127.0.0.1' &&
+                    window.location.hostname !== '') {
                     messageDiv.innerHTML = `
-                        <strong>Connection Error:</strong><br>
-                        Unable to connect to the server. Please ensure:<br>
-                        • The backend server is running (port 8000)<br>
-                        • You're accessing this page via http://localhost:3000<br>
-                        • Or use the provided local server (see README)
+                        We're experiencing technical difficulties. Please try again later or
+                        <a href="mailto:support@pancakemoney.com" class="underline">email us directly</a>.
                     `;
                 } else {
-                    messageDiv.textContent = `Error: ${error.message}`;
+                    // Local development error message
+                    if (error.message.includes('Failed to fetch')) {
+                        messageDiv.innerHTML = `
+                            <strong>Connection Error:</strong><br>
+                            Unable to connect to the server. Please ensure:<br>
+                            • The backend server is running (port 8000)<br>
+                            • You're accessing this page via http://localhost<br>
+                        `;
+                    } else {
+                        messageDiv.textContent = `Error: ${error.message}`;
+                    }
                 }
 
                 submitButton.disabled = false;
