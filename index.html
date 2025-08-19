@@ -328,140 +328,99 @@
                 referral_source: 'website'
             };
 
-            try {
-                // For production, use Loops.so API directly
-                // For local development, use the backend proxy
-                let apiUrl;
-                let requestOptions;
-
-                if (window.location.protocol === 'file:' ||
-                    window.location.hostname === 'localhost' ||
-                    window.location.hostname === '127.0.0.1' ||
-                    window.location.hostname === '') {
-                    // Local development - use backend proxy
-                    apiUrl = 'http://localhost:8000/api/v1/forms/waitlist';
-                    requestOptions = {
+            // For production, we'll use a simple email collection approach
+            // since Loops.so doesn't support direct browser requests (CORS issue)
+            if (window.location.protocol === 'file:' ||
+                window.location.hostname === 'localhost' ||
+                window.location.hostname === '127.0.0.1' ||
+                window.location.hostname === '') {
+                // Local development - use backend proxy
+                try {
+                    const apiUrl = 'http://localhost:8000/api/v1/forms/waitlist';
+                    const response = await fetch(apiUrl, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                         },
                         body: JSON.stringify(data)
-                    };
-                } else {
-                    // Production - use Loops.so API directly
-                    apiUrl = 'https://app.loops.so/api/v1/contacts/create';
+                    });
 
-                    // Transform data for Loops.so format
-                    const loopsData = {
-                        email: data.email,
-                        firstName: data.first_name,
-                        source: 'Website',
-                        userGroup: 'Waitlist',
-                        customFields: {}
-                    };
+                    const result = await response.json();
 
-                    if (data.use_case) {
-                        loopsData.customFields.use_case = data.use_case;
-                    }
-
-                    requestOptions = {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': 'Bearer e1860bab7cc81960e267457292c88d40'
-                        },
-                        body: JSON.stringify(loopsData)
-                    };
-                }
-
-                console.log('Submitting to:', apiUrl);  // Debug logging
-
-                const response = await fetch(apiUrl, {
-                    ...requestOptions
-                });
-
-                // Handle response based on environment
-                let success = false;
-                let result;
-
-                if (window.location.hostname === 'localhost' ||
-                    window.location.hostname === '127.0.0.1' ||
-                    window.location.hostname === '') {
-                    // Local backend response
-                    result = await response.json();
-                    success = response.ok;
-                } else {
-                    // Loops.so returns different response format
-                    result = await response.json();
-                    // Loops.so returns success: true or id property on success
-                    // Also returns success: false with message for duplicates
-                    success = result.success === true || !!result.id;
-                }
-
-                if (success) {
-                    // Success - show success message and hide form
-                    form.innerHTML = `
-                        <div class="bg-green-50 border border-green-200 rounded-lg p-6 text-center">
-                            <svg class="w-12 h-12 text-green-500 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Welcome to the Pancake family!</h3>
-                            <p class="text-gray-600">Check your email for your exclusive early access promo code.</p>
-                        </div>
-                    `;
-                } else {
-                    // Check if it's a duplicate email (Loops returns success: false)
-                    if (result && result.message && result.message.toLowerCase().includes('already')) {
-                        // Show success message for duplicate emails too
+                    if (response.ok) {
+                        // Success - show success message and hide form
                         form.innerHTML = `
-                            <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 text-center">
-                                <svg class="w-12 h-12 text-blue-500 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div class="bg-green-50 border border-green-200 rounded-lg p-6 text-center">
+                                <svg class="w-12 h-12 text-green-500 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
-                                <h3 class="text-lg font-semibold text-gray-900 mb-2">You're already on the list!</h3>
-                                <p class="text-gray-600">We'll notify you as soon as Pancake launches.</p>
+                                <h3 class="text-lg font-semibold text-gray-900 mb-2">Welcome to the Pancake family!</h3>
+                                <p class="text-gray-600">Check your email for your exclusive early access promo code.</p>
                             </div>
                         `;
                     } else {
-                        // Error - show error message
                         messageDiv.className = 'block text-red-600 text-sm mt-2';
-                        messageDiv.textContent = 'Something went wrong. Please try again or email support@pancakemoney.com';
+                        messageDiv.textContent = result.detail || 'Something went wrong. Please try again.';
                         submitButton.disabled = false;
                         submitButton.textContent = 'Join the Waitlist';
                     }
-                }
-            } catch (error) {
-                // Network error - provide more detailed feedback
-                console.error('Form submission error:', error);
-                console.error('Error details:', error.message, error.stack);
-                messageDiv.className = 'block text-red-600 text-sm mt-2';
-
-                // For production, provide user-friendly message but log details
-                if (window.location.hostname !== 'localhost' &&
-                    window.location.hostname !== '127.0.0.1' &&
-                    window.location.hostname !== '') {
-                    console.error('Production error - API URL was:', apiUrl);
-                    console.error('Request data was:', JSON.stringify(data));
+                } catch (error) {
+                    console.error('Form submission error:', error);
+                    messageDiv.className = 'block text-red-600 text-sm mt-2';
                     messageDiv.innerHTML = `
-                        We're experiencing technical difficulties. Please try again later or
-                        <a href="mailto:support@pancakemoney.com" class="underline">email us directly</a>.
+                        <strong>Connection Error:</strong><br>
+                        Unable to connect to the server. Please ensure:<br>
+                        • The backend server is running (port 8000)<br>
+                        • You're accessing this page via http://localhost<br>
                     `;
-                } else {
-                    // Local development error message
-                    if (error.message.includes('Failed to fetch')) {
-                        messageDiv.innerHTML = `
-                            <strong>Connection Error:</strong><br>
-                            Unable to connect to the server. Please ensure:<br>
-                            • The backend server is running (port 8000)<br>
-                            • You're accessing this page via http://localhost<br>
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Join the Waitlist';
+                }
+            } else {
+                // Production - Use Railway backend API
+                // IMPORTANT: Update this URL after deploying to Railway
+                const apiUrl = 'https://your-backend.railway.app/api/v1/forms/waitlist';
+                // Example: 'https://pancake-backend-production.up.railway.app/api/v1/forms/waitlist'
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok && result.success) {
+                        // Show success message
+                        form.innerHTML = `
+                            <div class="bg-green-50 border border-green-200 rounded-lg p-6 text-center">
+                                <svg class="w-12 h-12 text-green-500 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <h3 class="text-lg font-semibold text-gray-900 mb-2">Welcome to the Pancake family!</h3>
+                                <p class="text-gray-600">We'll notify you as soon as we launch. Thank you for your interest!</p>
+                            </div>
                         `;
                     } else {
-                        messageDiv.textContent = `Error: ${error.message}`;
+                        // Error - show message
+                        messageDiv.className = 'block text-red-600 text-sm mt-2';
+                        messageDiv.textContent = result.detail || result.message || 'Something went wrong. Please try again.';
+                        submitButton.disabled = false;
+                        submitButton.textContent = 'Join the Waitlist';
                     }
+                } catch (error) {
+                    console.error('Form submission error:', error);
+                    messageDiv.className = 'block text-red-600 text-sm mt-2';
+                    messageDiv.innerHTML = `
+                        Unable to submit form. Please check your connection or
+                        <a href="mailto:support@pancakemoney.com" class="underline">email us directly</a>.
+                    `;
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Join the Waitlist';
                 }
-
-                submitButton.disabled = false;
-                submitButton.textContent = 'Join the Waitlist';
             }
         });
     </script>
