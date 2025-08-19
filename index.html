@@ -382,20 +382,20 @@
 
                 // Handle response based on environment
                 let success = false;
+                let result;
 
                 if (window.location.hostname === 'localhost' ||
                     window.location.hostname === '127.0.0.1' ||
                     window.location.hostname === '') {
                     // Local backend response
-                    const result = await response.json();
+                    result = await response.json();
                     success = response.ok;
                 } else {
                     // Loops.so returns different response format
-                    if (response.ok) {
-                        const result = await response.json();
-                        // Loops.so returns success: true or id property on success
-                        success = result.success || result.id;
-                    }
+                    result = await response.json();
+                    // Loops.so returns success: true or id property on success
+                    // Also returns success: false with message for duplicates
+                    success = result.success === true || !!result.id;
                 }
 
                 if (success) {
@@ -410,28 +410,38 @@
                         </div>
                     `;
                 } else {
-                    // Error - show error message
-                    messageDiv.className = 'text-red-600 text-sm mt-2';
-
-                    // Check if email already exists (409 status from Loops)
-                    if (response.status === 409) {
-                        messageDiv.textContent = 'You\'re already on the waitlist! Check your email for updates.';
+                    // Check if it's a duplicate email (Loops returns success: false)
+                    if (result && result.message && result.message.toLowerCase().includes('already')) {
+                        // Show success message for duplicate emails too
+                        form.innerHTML = `
+                            <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 text-center">
+                                <svg class="w-12 h-12 text-blue-500 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <h3 class="text-lg font-semibold text-gray-900 mb-2">You're already on the list!</h3>
+                                <p class="text-gray-600">We'll notify you as soon as Pancake launches.</p>
+                            </div>
+                        `;
                     } else {
+                        // Error - show error message
+                        messageDiv.className = 'block text-red-600 text-sm mt-2';
                         messageDiv.textContent = 'Something went wrong. Please try again or email support@pancakemoney.com';
+                        submitButton.disabled = false;
+                        submitButton.textContent = 'Join the Waitlist';
                     }
-
-                    submitButton.disabled = false;
-                    submitButton.textContent = 'Join the Waitlist';
                 }
             } catch (error) {
                 // Network error - provide more detailed feedback
                 console.error('Form submission error:', error);
-                messageDiv.className = 'text-red-600 text-sm mt-2';
+                console.error('Error details:', error.message, error.stack);
+                messageDiv.className = 'block text-red-600 text-sm mt-2';
 
-                // For production, provide user-friendly message
+                // For production, provide user-friendly message but log details
                 if (window.location.hostname !== 'localhost' &&
                     window.location.hostname !== '127.0.0.1' &&
                     window.location.hostname !== '') {
+                    console.error('Production error - API URL was:', apiUrl);
+                    console.error('Request data was:', JSON.stringify(data));
                     messageDiv.innerHTML = `
                         We're experiencing technical difficulties. Please try again later or
                         <a href="mailto:support@pancakemoney.com" class="underline">email us directly</a>.
