@@ -1,5 +1,9 @@
 # Pancake Landing Page
 
+![CI Pipeline](https://github.com/[YOUR-GITHUB-USERNAME]/pancake-budgeting/workflows/CI%20Pipeline/badge.svg)
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-success)](https://[YOUR-GITHUB-USERNAME].github.io/pancake-budgeting/)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 The official landing page for Pancake - a smart budgeting app that helps you take control of your finances, one stack at a time.
 
 ## 🚀 Quick Start

@@ -277,13 +277,13 @@
         // Show/hide button and change color based on button position
         window.addEventListener('scroll', function() {
             const aboutSection = document.getElementById('about');
-            const pancakeProSection = document.getElementById('pancake-pro');
+            const pancakeAiSection = document.getElementById('pancake-ai');
             const dataPrivacySection = document.getElementById('data-privacy');
             const contactSection = document.getElementById('contact');
 
             // Get section positions
             const aboutTop = aboutSection.offsetTop;
-            const pancakeProTop = pancakeProSection.offsetTop;
+            const pancakeAiTop = pancakeAiSection.offsetTop;
             const dataPrivacyTop = dataPrivacySection.offsetTop;
             const contactTop = contactSection.offsetTop;
 
@@ -301,13 +301,13 @@
             const buttonPosition = window.pageYOffset + buttonRect.top + (buttonRect.height / 2);
 
             // Change button color based on which section the button is over
-            if ((buttonPosition >= aboutTop && buttonPosition < pancakeProTop) ||
+            if ((buttonPosition >= aboutTop && buttonPosition < pancakeAiTop) ||
                 (buttonPosition >= dataPrivacyTop && buttonPosition < contactTop)) {
                 // Button is over green sections (About or Data Privacy) - make button white
                 backToTopButton.classList.remove('bg-[#279B75]', 'hover:bg-[#2E8B57]', 'text-white');
                 backToTopButton.classList.add('bg-white', 'hover:bg-gray-100', 'text-[#279B75]');
             } else {
-                // Button is over white/gray sections (Home, Pancake Pro, or Contact) - make button green
+                // Button is over white/gray sections (Home, Pancake AI, or Contact) - make button green
                 backToTopButton.classList.remove('bg-white', 'hover:bg-gray-100', 'text-[#279B75]');
                 backToTopButton.classList.add('bg-[#279B75]', 'hover:bg-[#2E8B57]', 'text-white');
             }
