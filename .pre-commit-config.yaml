@@ -1,4 +1,4 @@
-# Pre-commit hooks for Pancake Budgeting Website
+# Pre-commit hooks for pancake money Website
 # Basic security and file checks
 
 repos:
