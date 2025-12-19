@@ -85,27 +85,7 @@
             <a href="#home" class="text-3xl font-bold text-black">Pancake</a>
         </div>
 
-        <!-- Right: Nav Links (Desktop) -->
-        <div class="hidden md:flex space-x-6 items-center">
-            <a href="#about" class="text-gray-700 hover:text-black font-medium">About Us</a>
-            <a href="#pancake-ai" class="text-gray-700 hover:text-black font-medium">Pancake AI</a>
-            <a href="#data-privacy" class="text-gray-700 hover:text-black font-medium">Data Privacy</a>
-            <a href="#contact" class="text-gray-700 hover:text-black font-medium">Contact</a>
-        </div>
-
-        <!-- Hamburger Button (Mobile) -->
-        <button id="menu-toggle" class="md:hidden text-gray-900 text-2xl">
-            ☰
-        </button>
     </nav>
-
-    <!-- Mobile Menu (Hidden by Default) -->
-    <div id="mobile-menu" class="hidden fixed top-16 left-0 w-full bg-white shadow-md md:hidden z-[60]">
-        <a href="#about" class="block px-8 py-4 text-gray-700 hover:bg-gray-100">About Us</a>
-        <a href="#pancake-ai" class="block px-8 py-4 text-gray-700 hover:bg-gray-100">Pancake AI</a>
-        <a href="#data-privacy" class="block px-8 py-4 text-gray-700 hover:bg-gray-100">Data Privacy</a>
-        <a href="#contact" class="block px-8 py-4 text-gray-700 hover:bg-gray-100">Contact</a>
-    </div>
 
     <!-- Hero Section - WHITE -->
     <section id="home" class="w-full flex md:flex-row flex-col items-center justify-center px-6 pt-28 pb-20 md:pt-16 md:pb-0 md:px-12 lg:px-24 gap-8 md:gap-12 bg-gray-50 min-h-screen">
@@ -206,29 +186,52 @@
         </div>
     </section>
 
-    <!-- Contact Section - WHITE -->
-    <section id="contact" class="flex flex-col items-center justify-start px-6 py-20 md:py-32 md:px-12 lg:px-24 gap-6 md:gap-8 text-center bg-gray-50">
-        <!-- Contact Heading -->
-        <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 md:mb-6">Contact Us</h2>
+    <!-- Footer -->
+    <footer class="bg-gray-200 px-6 py-12 md:py-16 md:px-12 lg:px-24">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row md:justify-between gap-10 md:gap-16">
+                <!-- Pancake Subsection -->
+                <div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">Pancake</h3>
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="#" class="text-gray-600 hover:text-[#279B75] transition-colors">About Us</a>
+                        </li>
+                        <li>
+                            <a href="/privacy" class="text-gray-600 hover:text-[#279B75] transition-colors">Privacy</a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-600 hover:text-[#279B75] transition-colors">Terms of Service</a>
+                        </li>
+                    </ul>
+                </div>
 
-        <!-- Social Icons -->
-        <div class="flex justify-center space-x-6 text-gray-600">
-            <a href="https://www.instagram.com/pancake.money/" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram">
-                <img src="./images/AppsLogos/Instagram_Glyph_Black.jpg" alt="Follow us on Instagram" class="w-14 h-14 hover:scale-110 transition-transform" />
-            </a>
-            <a href="https://x.com/pancake_money" target="_blank" rel="noopener noreferrer" aria-label="Follow us on x-logo-black">
-                <img src="./images/AppsLogos/x-logo-black.png" alt="Follow us on X" class="w-14 h-14 hover:scale-110 transition-transform" />
-            </a>
+                <!-- Contact Us Subsection -->
+                <div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">Contact Us</h3>
+                    <div class="flex space-x-4 mb-4">
+                        <a href="https://www.instagram.com/pancake.money/" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram">
+                            <img src="./images/AppsLogos/Instagram_Glyph_Black.jpg" alt="Follow us on Instagram" class="w-10 h-10 hover:scale-110 transition-transform" />
+                        </a>
+                        <a href="https://x.com/pancake_money" target="_blank" rel="noopener noreferrer" aria-label="Follow us on X">
+                            <img src="./images/AppsLogos/x-logo-black.png" alt="Follow us on X" class="w-10 h-10 hover:scale-110 transition-transform" />
+                        </a>
+                    </div>
+                    <p class="text-gray-600">
+                        Need help?
+                        <a href="mailto:support@pancakemoney.com" class="text-[#279B75] hover:underline font-semibold">
+                            Email our support team
+                        </a>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="mt-10 pt-6 border-t border-gray-300">
+                <p class="text-gray-500 text-sm">&copy; 2025 Pancake Money LLC. All rights reserved.</p>
+            </div>
         </div>
-
-        <!-- Contact Paragraph -->
-        <p class="text-base sm:text-lg text-gray-700">
-            Need help?
-            <a href="mailto:support@pancakemoney.com" class="text-[#279B75] hover:underline font-semibold">
-                Email our support team
-            </a>
-        </p>
-    </section>
+    </footer>
 
     <!-- Back to Top Button -->
     <button id="back-to-top" class="fixed bottom-8 right-8 bg-[#279B75] text-white p-3 rounded-full shadow-lg hover:bg-[#2E8B57] transition-all duration-300 opacity-0 invisible z-50" aria-label="Back to top">
@@ -237,40 +240,8 @@
         </svg>
     </button>
 
-    <!-- JavaScript for Mobile Menu Toggle and Back to Top -->
+    <!-- JavaScript for Back to Top and Form -->
     <script>
-        // Remove anchor from URL on page load/refresh
-        if (window.location.hash) {
-            // Store the hash to optionally scroll to it
-            const targetHash = window.location.hash;
-
-            // Remove the hash from the URL without causing a page reload
-            history.replaceState(null, null, window.location.pathname + window.location.search);
-
-            // Optional: Still scroll to the element if it exists
-            // This maintains the user's position after refresh
-            // Comment out the following lines if you don't want to maintain scroll position
-            const targetElement = document.querySelector(targetHash);
-            if (targetElement) {
-                setTimeout(() => {
-                    targetElement.scrollIntoView({ behavior: 'smooth' });
-                }, 100);
-            }
-        }
-
-        // Mobile menu toggle
-        document.getElementById('menu-toggle').addEventListener('click', function() {
-            var menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-        });
-
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('#mobile-menu a').forEach(link => {
-            link.addEventListener('click', function() {
-                document.getElementById('mobile-menu').classList.add('hidden');
-            });
-        });
-
         // Back to top functionality
         const backToTopButton = document.getElementById('back-to-top');
 
@@ -279,13 +250,13 @@
             const aboutSection = document.getElementById('about');
             const pancakeAiSection = document.getElementById('pancake-ai');
             const dataPrivacySection = document.getElementById('data-privacy');
-            const contactSection = document.getElementById('contact');
+            const footer = document.querySelector('footer');
 
             // Get section positions
             const aboutTop = aboutSection.offsetTop;
             const pancakeAiTop = pancakeAiSection.offsetTop;
             const dataPrivacyTop = dataPrivacySection.offsetTop;
-            const contactTop = contactSection.offsetTop;
+            const footerTop = footer.offsetTop;
 
             // Show/hide button
             if (window.pageYOffset > 300) {
@@ -302,12 +273,12 @@
 
             // Change button color based on which section the button is over
             if ((buttonPosition >= aboutTop && buttonPosition < pancakeAiTop) ||
-                (buttonPosition >= dataPrivacyTop && buttonPosition < contactTop)) {
+                (buttonPosition >= dataPrivacyTop && buttonPosition < footerTop)) {
                 // Button is over green sections (About or Data Privacy) - make button white
                 backToTopButton.classList.remove('bg-[#279B75]', 'hover:bg-[#2E8B57]', 'text-white');
                 backToTopButton.classList.add('bg-white', 'hover:bg-gray-100', 'text-[#279B75]');
             } else {
-                // Button is over white/gray sections (Home, Pancake AI, or Contact) - make button green
+                // Button is over white/gray sections (Home, Pancake AI, or Footer) - make button green
                 backToTopButton.classList.remove('bg-white', 'hover:bg-gray-100', 'text-[#279B75]');
                 backToTopButton.classList.add('bg-[#279B75]', 'hover:bg-[#2E8B57]', 'text-white');
             }
